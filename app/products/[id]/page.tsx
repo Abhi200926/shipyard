@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, products } from "../../data/products";
@@ -32,7 +33,14 @@ export default async function ProductPage({ params }: PageProps) {
 
       <article className="detail">
         <div className="detail-art" style={{ backgroundColor: product.color }}>
-          <span aria-hidden="true">{product.emoji}</span>
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={800}
+            height={600}
+            sizes="(min-width: 1100px) 540px, (min-width: 700px) 50vw, 100vw"
+            priority
+          />
         </div>
         <div className="detail-info">
           <span className="card-category">{product.category}</span>

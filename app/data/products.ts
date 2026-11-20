@@ -6,8 +6,8 @@ export type Product = {
   description: string;
   rating: number; // 0 to 5
   inStock: boolean;
-  emoji: string;
-  color: string; // hex, used for the card artwork background
+  image: string; // path under /public, e.g. "/products/wave-runner.webp" (800x600)
+  color: string; // hex, shown behind the image while it loads
 };
 
 export const products: Product[] = [
@@ -20,7 +20,7 @@ export const products: Product[] = [
       "Lightweight running shoes with a responsive foam sole and breathable knit upper. Built for long coastal miles.",
     rating: 4.6,
     inStock: true,
-    emoji: "👟",
+    image: "/products/wave-runner.webp",
     color: "#dbeafe",
   },
   {
@@ -32,7 +32,7 @@ export const products: Product[] = [
       "Waterproof, taped-seam shell with an adjustable hood and packable design. Keeps the squall out.",
     rating: 4.8,
     inStock: true,
-    emoji: "🧥",
+    image: "/products/harbor-jacket.webp",
     color: "#dcfce7",
   },
   {
@@ -44,7 +44,7 @@ export const products: Product[] = [
       "A 25-litre daypack with a padded laptop sleeve, water-resistant fabric and quick-access side pockets.",
     rating: 4.4,
     inStock: true,
-    emoji: "🎒",
+    image: "/products/anchor-backpack.webp",
     color: "#fef3c7",
   },
   {
@@ -56,7 +56,7 @@ export const products: Product[] = [
       "A soft merino-blend beanie with a classic fold-over cuff. Warm, stretchy and itch-free.",
     rating: 4.2,
     inStock: true,
-    emoji: "🧢",
+    image: "/products/sailor-cap.webp",
     color: "#fce7f3",
   },
   {
@@ -68,7 +68,7 @@ export const products: Product[] = [
       "Quick-dry sandals with a grippy non-marking sole, ideal for boats, docks and beaches.",
     rating: 4.1,
     inStock: false,
-    emoji: "🩴",
+    image: "/products/deck-sandals.webp",
     color: "#e0e7ff",
   },
   {
@@ -80,7 +80,7 @@ export const products: Product[] = [
       "A rugged field watch with a built-in compass bezel, sapphire glass and 100 m water resistance.",
     rating: 4.9,
     inStock: true,
-    emoji: "⌚",
+    image: "/products/compass-watch.webp",
     color: "#fee2e2",
   },
   {
@@ -92,7 +92,7 @@ export const products: Product[] = [
       "A rechargeable LED camping lantern with three brightness modes and up to 40 hours of runtime.",
     rating: 4.5,
     inStock: true,
-    emoji: "🏮",
+    image: "/products/lighthouse-lantern.webp",
     color: "#ffedd5",
   },
 ];
