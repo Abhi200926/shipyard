@@ -2,6 +2,8 @@
 
 A small product-catalog storefront built with Next.js (App Router) and TypeScript: a home page with a responsive product grid, and a statically generated detail page for every product.
 
+**Repository (public):** https://github.com/Abhi200926/shipyard
+
 **Live site:** https://abhi200926.github.io/shipyard/
 
 **Lighthouse Performance (Mobile):** _TODO: fill in after measuring the live site_ / 100
