@@ -335,3 +335,27 @@ a {
   border-color: #86efac;
   color: #166534;
 }
+
+/* Loading and error states */
+.skeleton-card {
+  height: 280px;
+  background: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+.retry-button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  filter: brightness(1.1);
+}
