@@ -1,19 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../data/products";
+import { asset } from "../lib/asset";
 
 type ProductCardProps = {
   product: Product;
+  priority?: boolean; // true for above-the-fold cards (LCP)
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
     <Link href={`/products/${product.id}`} className="card">
       <div className="card-art" style={{ backgroundColor: product.color }}>
         <Image
-          src={product.image}
+          src={asset(product.image)}
           alt={product.name}
           fill
+          priority={priority}
           sizes="(min-width: 1100px) 260px, (min-width: 540px) 33vw, 100vw"
           style={{ objectFit: "cover" }}
         />

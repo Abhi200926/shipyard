@@ -5,10 +5,14 @@ import { notFound } from "next/navigation";
 import ReviewsLoader from "../../components/ReviewsLoader";
 import { getProduct, products } from "../../data/products";
 import { getReviews } from "../../data/reviews";
+import { asset } from "../../lib/asset";
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
+
+// Static export: only the ids returned below exist; anything else is a 404.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return products.map((product) => ({ id: product.id }));
@@ -29,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: product.name,
       description: product.description,
-      images: [{ url: product.image, width: 800, height: 600, alt: product.name }],
+      images: [{ url: asset(product.image), width: 800, height: 600, alt: product.name }],
     },
   };
 }
@@ -51,7 +55,7 @@ export default async function ProductPage({ params }: PageProps) {
       <article className="detail">
         <div className="detail-art" style={{ backgroundColor: product.color }}>
           <Image
-            src={product.image}
+            src={asset(product.image)}
             alt={product.name}
             width={800}
             height={600}

@@ -10,6 +10,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abhi200926.github.io"),
   title: {
     default: "ShipYard",
     template: "%s | ShipYard",
