@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ReviewsLoader from "../../components/ReviewsLoader";
 import { getProduct, products } from "../../data/products";
+import { getReviews } from "../../data/reviews";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -11,10 +14,24 @@ export function generateStaticParams() {
   return products.map((product) => ({ id: product.id }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
   const product = getProduct(id);
-  return { title: product ? `${product.name} | ShipYard` : "Not found | ShipYard" };
+
+  if (!product) {
+    return { title: "Product not found" };
+  }
+
+  // The layout's title template turns this into "<name> | ShipYard".
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: [{ url: product.image, width: 800, height: 600, alt: product.name }],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: PageProps) {
@@ -53,6 +70,8 @@ export default async function ProductPage({ params }: PageProps) {
           </span>
         </div>
       </article>
+
+      <ReviewsLoader reviews={getReviews(product.id)} />
     </main>
   );
 }

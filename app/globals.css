@@ -191,3 +191,147 @@ a {
   margin: 0;
   color: var(--accent);
 }
+
+/* Reviews (lazy-loaded panel) */
+.reviews,
+.reviews-skeleton,
+.reviews-empty {
+  margin-top: 2rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+/* Reserve space so the page does not jump when the chunk arrives. */
+.reviews-skeleton {
+  min-height: 420px;
+  color: var(--muted);
+  background: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.reviews-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.reviews-head h2 {
+  margin: 0;
+}
+
+.reviews-sort select {
+  margin-left: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.reviews-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.reviews-average {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.reviews-average span {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.reviews-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.reviews-bars li {
+  display: grid;
+  grid-template-columns: 2rem 1fr 1.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: #f59e0b;
+}
+
+.reviews-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.review {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.review h3 {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
+.review p {
+  margin: 0.25rem 0;
+}
+
+.review-stars {
+  color: #b45309;
+  letter-spacing: 0.1em;
+}
+
+.review-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.review-helpful {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.review-helpful[aria-pressed="true"] {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
