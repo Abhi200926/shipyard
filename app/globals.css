@@ -1,26 +1,361 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f8fafc;
+  --fg: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0369a1;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem 0 2.5rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: var(--accent);
+}
+
+.hero p {
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+}
+
+.card-art {
+  position: relative; /* sized parent for next/image fill */
+  aspect-ratio: 4 / 3;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem;
+}
+
+.card-category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.card-name {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-price {
+  font-weight: 700;
+}
+
+.card-rating {
+  color: #b45309;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+}
+
+.in-stock {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.sold-out {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.detail-art {
+  position: relative;
+  min-height: 280px;
+}
+
+.detail-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.detail-info h1 {
+  margin: 0;
+}
+
+.detail-price {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.detail-description {
+  color: var(--muted);
+  margin: 0;
+}
+
+.not-found {
+  text-align: center;
+  padding-top: 5rem;
+}
+
+.not-found h1 {
+  font-size: 4rem;
+  margin: 0;
+  color: var(--accent);
+}
+
+/* Reviews (lazy-loaded panel) */
+.reviews,
+.reviews-skeleton,
+.reviews-empty {
+  margin-top: 2rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+/* Reserve space so the page does not jump when the chunk arrives. */
+.reviews-skeleton {
+  min-height: 420px;
+  color: var(--muted);
+  background: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.reviews-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.reviews-head h2 {
+  margin: 0;
+}
+
+.reviews-sort select {
+  margin-left: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.reviews-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.reviews-average {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.reviews-average span {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.reviews-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.reviews-bars li {
+  display: grid;
+  grid-template-columns: 2rem 1fr 1.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: #f59e0b;
+}
+
+.reviews-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.review {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.review h3 {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
+.review p {
+  margin: 0.25rem 0;
+}
+
+.review-stars {
+  color: #b45309;
+  letter-spacing: 0.1em;
+}
+
+.review-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.review-helpful {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.review-helpful[aria-pressed="true"] {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+/* Loading and error states */
+.skeleton-card {
+  height: 280px;
+  background: linear-gradient(90deg, #f1f5f9, #e2e8f0, #f1f5f9);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+.retry-button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  filter: brightness(1.1);
 }
